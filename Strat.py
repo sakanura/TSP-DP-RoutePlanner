@@ -20,6 +20,89 @@ def initial_data():
     #st.title(jarak[0,4])
     return jarak
 
+def template(angka):
+	if angka == 2:
+		jarak = np.array([[0, 0], 
+                    	   [0, 0]])
+	if angka == 3:
+		jarak = np.array([[0, 0, 0], 
+                    	   [0, 0, 0], 
+                    	   [0, 0, 0]])
+	if angka == 4:
+		jarak = np.array([[0, 0, 0, 0], 
+                    	   [0, 0, 0, 0], 
+                    	   [0, 0, 0, 0], 
+                    	   [0, 0, 0, 0]])
+	if angka == 5:
+		jarak = np.array([[0, 0, 0, 0, 0], 
+        	               [0, 0, 0, 0, 0], 
+            	           [0, 0, 0, 0, 0], 
+                	       [0, 0, 0, 0, 0],
+                    	   [0, 0, 0, 0, 0]])
+	if angka == 6:
+		jarak = np.array([[0, 0, 0, 0, 0, 0], 
+        	               [0, 0, 0, 0, 0, 0], 
+            	           [0, 0, 0, 0, 0, 0], 
+                	       [0, 0, 0, 0, 0, 0],
+                    	   [0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0]])
+	if angka == 7:
+		jarak = np.array([[0, 0, 0, 0, 0, 0, 0], 
+        	               [0, 0, 0, 0, 0, 0, 0], 
+            	           [0, 0, 0, 0, 0, 0, 0], 
+                	       [0, 0, 0, 0, 0, 0, 0],
+                    	   [0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0]])
+	if angka == 8:
+		jarak = np.array([[0, 0, 0, 0, 0, 0, 0, 0], 
+        	               [0, 0, 0, 0, 0, 0, 0, 0], 
+            	           [0, 0, 0, 0, 0, 0, 0, 0], 
+                	       [0, 0, 0, 0, 0, 0, 0, 0],
+                    	   [0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0]])
+	if angka == 9:
+		jarak = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        	               [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+            	           [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                	       [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    	   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0]])
+	if angka == 10:
+		jarak = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        	               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+            	           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                	       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    	   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+	return jarak
+
+
+# def template1():
+#     jarak = np.array([[0, 0, 0, 0], 
+#                        [0, 0, 0, 0], 
+#                        [0, 0, 0, 0], 
+#                        [0, 0, 0, 0]])
+#     return jarak
+
+# def template2():
+#     jarak = np.array([[0, 0, 0, 0, 0], 
+#                        [0, 0, 0, 0, 0], 
+#                        [0, 0, 0, 0, 0], 
+#                        [0, 0, 0, 0, 0],
+#                        [0, 0, 0, 0, 0]])
+#     return jarak
+
+	
 def pencarian_indeks(data):
 	listCodeTempat = ["User","A1","A2","A3","A4","B1","B2","C1","D1","D2","E1","E2","E3"]
 	found = -1
@@ -182,10 +265,33 @@ def bruteForce (n, tempat, jarak):
 		Hasil_brute_force.append (total)
 	return Hasil_brute_force, min, KotaMin
 
-
+def TSP_DP(graph, v, currPos, n, count, cost, path, min_cost, min_path):
+ 
+    
+    if count == n and graph[currPos][0]:
+        if cost + graph[currPos][0] < min_cost[0]:
+            min_cost[0] = cost + graph[currPos][0]
+            min_path[0] = path[:] + [0]  # Tambahkan simpul awal untuk menyelesaikan siklus
+        return
+ 
+    # BACKTRACKING STEP
+    # Perulangan untuk melintasi daftar kedekatan
+	# dari simpul currPos dan meningkatkan hitungan
+	# dengan 1 dan biaya dengan nilai graph[currPos][i]
+    for i in range(n):
+        if not v[i] and graph[currPos][i]:
+            # Mark as visited
+            v[i] = True
+            # Append the current node to the path
+            path.append(i)
+            TSP_DP(graph, v, i, n, count + 1, cost + graph[currPos][i], path, min_cost, min_path)
+            # Mark ith node as unvisited
+            v[i] = False
+            # Remove the last node from the path
+            path.pop()
 
 # Display logo and title
-st.image("Locatrip_removebg.png", width=400)  # Adjust width as needed
+st.image("Locatrip_removebg.png", width=700)  # Adjust width as needed
 st.title("Mau Ke Mana nih?")
 
 # Navigation menu items (replace with your actual pages)
@@ -215,10 +321,9 @@ if page == "Home":
             st.session_state.algorithm = "Brute Force"
             st.session_state.criterion = None
     with col2:
-        if st.button('Greedy Dijkstra'):
-            st.session_state.algorithm = "Greedy"
+        if st.button('Dynamic Programming TSP'):
+            st.session_state.algorithm = "DP"
             st.session_state.criterion = None
-
 
 if st.session_state.algorithm == "Brute Force":
 	if st.button('Hitung Solusi'):
@@ -236,6 +341,8 @@ if st.session_state.algorithm == "Brute Force":
 			else:
 				tujuan = kota12
 
+			st.title("TSP By Bruteforce")
+
 			st.subheader("Hasil Rute Perjalanan")
 			st.write(f"{tujuan}")
 
@@ -246,13 +353,59 @@ if st.session_state.algorithm == "Brute Force":
 			st.subheader("Running Time")
 			end_time = time.time()
 			execution_time = (end_time-start_time)
-			st.write(f"{execution_time} S")
+			st.write(f"{execution_time} detik")
 
-		elif st.session_state.algorithm == "Greedy" and st.session_state.criterion:
-			jarak = initial_data()
-			dijkstra(jarak, "Home", )
+elif st.session_state.algorithm == "DP":
+	if st.button('Hitung Solusi'):
+		start_time = time.time()
+		jarak = initial_data()
+		for i in range(13):
+			for j in range(13):
+				if jarak[i,j] == 0 and i != j:
+					jarak[i,j] = 9999
+		newJarak = template(int(option)+1)
+		temporary = []
+		for i in range (len(tempat)):
+			data = enkripsi(tempat[i])
+			temporary.append (pencarian_indeks(tempat[i]))
+		for i in range (len(tempat)):
+			for j in range (len(tempat)):
+				newJarak[i,j] = jarak[temporary[i],temporary[j]]
+
+		n = len(newJarak)
+		visited = [False] * n
+		visited[0] = True  # Start from node 0
+		answer = []  # To store the minimum cost
+		path = [0]    # Start with node 0
+		min_cost = [float('inf')]  # To store the minimum cost found so far
+		min_path = [[]]  # To store the minimum path found so far
+		TSP_DP(newJarak, visited, 0, n, 1, 0, path, min_cost, min_path)
+		data = list(min_path[0])
 
 
+		#if data != "NULL":
+		# if min_cost[0] > 9999:
+		# 	st.title("Hasil: Null")
+		# 	st.title("Jarak: Null")
+		# else:
+		tujuan = ""
+		for i in range(int(option)+1):
+			sementara = tempat[int(data[i])]
+			tujuan += kategori(sementara)
+			tujuan += " -> "
+		#st.title(min_path[0])
 
+		st.title("TSP By Dynamic Programming")
 
+		st.subheader("Hasil Rute Perjalanan")
+		st.write(f"{tujuan}")
 
+		st.subheader("Jarak Rute")
+		st.write(f"{min_cost[0]}")
+	
+		st.subheader("")
+		st.subheader("Running Time")
+		end_time = time.time()
+		execution_time = (end_time-start_time)
+		st.write(f"{execution_time} detik")
+		#st.title(hasil)
