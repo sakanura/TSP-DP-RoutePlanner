@@ -4,6 +4,7 @@ import numpy as np
 import time
 
 def initial_data():
+	# INISIASI DATA JARAK ANTAR TEMPAT
     jarak = np.array([[0, 6, 0, 7, 10, 8, 11, 0, 12, 0, 7, 0, 9], 
                        [6, 0, 2, 0, 3, 0, 3, 4, 7, 8, 0, 1, 3], 
                        [0, 3, 0, 4, 1, 0, 1, 2, 0, 5, 4, 3, 2], 
@@ -17,10 +18,12 @@ def initial_data():
                        [7, 1, 9, 3, 2, 1, 2, 0, 6, 7, 0, 1 ,2], 
                        [8, 2, 3, 2 ,0, 1, 4, 5, 4, 5, 2, 0, 1], 
                        [9, 2, 2, 0, 2, 1, 0, 4, 4, 0, 2, 1, 0]])
-    #st.title(jarak[0,4])
+    
     return jarak
 
 def template(angka):
+
+	# PENGGUNAAN MATRIKS UNTUK KEPERLUAN DP
 	if angka == 2:
 		jarak = np.array([[0, 0], 
                     	   [0, 0]])
@@ -85,23 +88,6 @@ def template(angka):
 						   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 						   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 	return jarak
-
-
-# def template1():
-#     jarak = np.array([[0, 0, 0, 0], 
-#                        [0, 0, 0, 0], 
-#                        [0, 0, 0, 0], 
-#                        [0, 0, 0, 0]])
-#     return jarak
-
-# def template2():
-#     jarak = np.array([[0, 0, 0, 0, 0], 
-#                        [0, 0, 0, 0, 0], 
-#                        [0, 0, 0, 0, 0], 
-#                        [0, 0, 0, 0, 0],
-#                        [0, 0, 0, 0, 0]])
-#     return jarak
-
 	
 def pencarian_indeks(data):
 	listCodeTempat = ["User","A1","A2","A3","A4","B1","B2","C1","D1","D2","E1","E2","E3"]
@@ -191,34 +177,34 @@ def listKategoriLainnya(x):
 	elif x[1] == "3":
 		return("Jalan Braga")
 
-
+# PERMUTASI UNTUK KEBUTUHAN BRUTEFORCE
 def permutation(lst):
 
-	# If lst is empty then there are no permutations
+	# Jika lst kosong maka tidak ada permutasi
 	if len(lst) == 0:
 		return []
 
-	# If there is only one element in lst then, only
-	# one permutation is possible
+	# Jika hanya ada satu elemen di lst maka,
+	# hanya satu permutasi yang mungkin terjadi
 	if len(lst) == 1:
 		return [lst]
 
-	# Find the permutations for lst if there are
-	# more than 1 characters
+	# Temukan permutasi untuk lst jika ada
+	# lebih dari 1 karakter
 
-	l = [] # empty list that will store current permutation
+	l = [] # array kosong yang akan menyimpan permutasi saat ini
 
-	# Iterate the input(lst) and calculate the permutation
+	# Lakukan iterasi pada input(lst) dan hitung permutasi
 	for i in range(len(lst)):
 		m = lst[i]
 
-		# Extract lst[i] or m from the list. remLst is
-		# remaining list
+		# Ekstrak lst[i] atau m dari daftar. remLst adalah
+		# daftar yang tersisa
 		remLst = lst[:i] + lst[i+1:]
 
 
-	# Generating all permutations where m is first
-	# element
+	# Menghasilkan semua permutasi di mana m adalah elemen yang
+	# pertama
 		for p in permutation(remLst):
 			l.append([m] + p)
 	return l
@@ -280,25 +266,26 @@ def TSP_DP(graph, v, currPos, n, count, cost, path, min_cost, min_path):
 	# dengan 1 dan biaya dengan nilai graph[currPos][i]
     for i in range(n):
         if not v[i] and graph[currPos][i]:
-            # Mark as visited
+            # Tandai sebagai telah dikunjungi
             v[i] = True
-            # Append the current node to the path
+            # Menambahkan simpul saat ini ke path
             path.append(i)
             TSP_DP(graph, v, i, n, count + 1, cost + graph[currPos][i], path, min_cost, min_path)
-            # Mark ith node as unvisited
+            # Tandai simpul ke-i sebagai tidak dikunjungi
             v[i] = False
-            # Remove the last node from the path
+            # Hapus simpul terakhir dari path
             path.pop()
 
-# Display logo and title
-st.image("Locatrip_removebg.png", width=700)  # Adjust width as needed
+# FRONTEND
+# Menampilkan logo dan judul
+st.image("Locatrip_removebg.png", width=700)  # Sesuaikan lebar sesuai kebutuhan
 st.title("Mau Ke Mana nih?")
 
-# Navigation menu items (replace with your actual pages)
+# Item menu navigasi (ganti dengan halaman yang sebenarnya)
 st.sidebar.header("Navigation")
 page = st.sidebar.selectbox("Select a page:", ["Home", "Tempat yang tersimpan"])
 
-# Display content based on selected page
+# Menampilkan konten berdasarkan halaman yang dipilih
 if page == "Home":
     st.write("Pilih banyak tempat tujuan:")
     option = st.selectbox("Select:", ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
@@ -311,9 +298,6 @@ if page == "Home":
         tempat.append (temp)
         count += 1
 
-    #for i in range(int(option)+1):
-    #    st.title(tempat[i])
-	
     col1, col2 = st.columns(2)
 
     with col1:
@@ -374,26 +358,19 @@ elif st.session_state.algorithm == "DP":
 
 		n = len(newJarak)
 		visited = [False] * n
-		visited[0] = True  # Start from node 0
-		answer = []  # To store the minimum cost
-		path = [0]    # Start with node 0
-		min_cost = [float('inf')]  # To store the minimum cost found so far
-		min_path = [[]]  # To store the minimum path found so far
+		visited[0] = True  # Mulai dari simpul 0
+		answer = []  # Untuk menyimpan biaya minimum
+		path = [0]    # Mulai dengan simpul 0
+		min_cost = [float('inf')]  # Untuk menyimpan jarak minimum yang ditemukan sejauh ini
+		min_path = [[]]  # Untuk menyimpan jalur minimum yang ditemukan sejauh ini
 		TSP_DP(newJarak, visited, 0, n, 1, 0, path, min_cost, min_path)
 		data = list(min_path[0])
 
-
-		#if data != "NULL":
-		# if min_cost[0] > 9999:
-		# 	st.title("Hasil: Null")
-		# 	st.title("Jarak: Null")
-		# else:
 		tujuan = ""
 		for i in range(int(option)+1):
 			sementara = tempat[int(data[i])]
 			tujuan += kategori(sementara)
 			tujuan += " -> "
-		#st.title(min_path[0])
 
 		st.title("TSP By Dynamic Programming")
 
@@ -408,4 +385,3 @@ elif st.session_state.algorithm == "DP":
 		end_time = time.time()
 		execution_time = (end_time-start_time)
 		st.write(f"{execution_time} detik")
-		#st.title(hasil)
